@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react'; // Removed useEffect and useRef as they are not used
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { ScrollArea } from "./components/ui/scroll-area";
@@ -27,10 +27,6 @@ export default function Component() {
   const [sprites, setSprites] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const animationRef = useRef();
-  const containerRef = useRef();
-
-  // Use the useEffect hooks and other logic here
 
   const handleBuyDigitalSticker = async () => {
     try {
@@ -96,7 +92,7 @@ export default function Component() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-green-500 font-mono p-4 flex flex-col relative overflow-hidden" ref={containerRef}>
+    <div className="min-h-screen bg-black text-green-500 font-mono p-4 flex flex-col relative overflow-hidden">
       {sprites.map((sprite, index) => (
         <Sprite key={index} {...sprite} />
       ))}
