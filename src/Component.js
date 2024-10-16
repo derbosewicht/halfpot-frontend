@@ -1,9 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
-import { ScrollArea } from "./components/ui/scroll-area";
 import styles from './components/Component.module.css';
 
 const Sprite = ({ x, y, size, color }) => (
@@ -22,17 +19,12 @@ const Sprite = ({ x, y, size, color }) => (
 
 export default function Component() {
   const [potAmount, setPotAmount] = useState(1000);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
-  const [spots, setSpots] = useState(0);
-  const [leaderboard, setLeaderboard] = useState([]);
   const [sprites, setSprites] = useState([]);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   const animationRef = useRef();
   const containerRef = useRef();
 
+  // Update pot amount every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setPotAmount(prevAmount => prevAmount + Math.floor(Math.random() * 10));
@@ -40,6 +32,7 @@ export default function Component() {
     return () => clearInterval(interval);
   }, []);
 
+  // Sprite animation effect
   useEffect(() => {
     const colors = ['#00ff00', '#00aa00', '#008800'];
     const newSprites = Array(10).fill().map(() => ({
@@ -48,7 +41,7 @@ export default function Component() {
       vx: (Math.random() - 0.5) * 2,
       vy: (Math.random() - 0.5) * 2,
       size: Math.random() * 20 + 10,
-      color: colors[Math.floor(Math.random() * colors.length)]
+      color: colors[Math.floor(Math.random() * colors.length)],
     }));
     setSprites(newSprites);
 
@@ -73,86 +66,6 @@ export default function Component() {
       }
     };
   }, []);
-
-  useEffect(() => {
-    const fetchLeaderboard = async () => {
-      try {
-        const response = await fetch('https://polar-ravine-08798.herokuapp.com/leaderboard');
-        if (!response.ok) {
-          throw new Error('Failed to fetch leaderboard data');
-        }
-        const data = await response.json();
-        setLeaderboard(data);
-      } catch (error) {
-        console.error('Error fetching leaderboard:', error);
-      }
-    };
-
-    fetchLeaderboard();
-  }, []);
-
-  const handleBuyDigitalSticker = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('User not logged in. Please log in to continue.');
-      }
-
-      const response = await fetch('https://polar-ravine-08798.herokuapp.com/purchase', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          username: username,
-          potAmount: potAmount,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to purchase sticker.');
-      }
-
-      console.log('Sticker purchased successfully');
-      setPotAmount(prevAmount => prevAmount + 1);
-      setSpots(prevSpots => prevSpots + 1);
-    } catch (error) {
-      console.error('Purchase error:', error);
-    }
-  };
-
-  const handleLogin = async () => {
-    try {
-      const response = await fetch('https://polar-ravine-08798.herokuapp.com/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
-      const data = await response.json();
-      console.log("Logged in successfully:", data);
-
-      setIsLoggedIn(true);
-      setUsername(email);
-      localStorage.setItem('token', data.token);
-    } catch (error) {
-      console.error("Login error:", error);
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    console.log("Logged out");
-    setIsLoggedIn(false);
-    setUsername('');
-  };
 
   return (
     <div className={styles.halfpotContainer} ref={containerRef}>
