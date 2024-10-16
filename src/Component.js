@@ -4,20 +4,6 @@ import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { ScrollArea } from "./components/ui/scroll-area";
 
-const Sprite = ({ x, y, size, color }) => (
-  <div 
-    className="absolute rounded-full"
-    style={{
-      left: `${x}px`,
-      top: `${y}px`,
-      width: `${size}px`,
-      height: `${size}px`,
-      backgroundColor: color,
-      opacity: 0.5,
-    }} 
-  />
-);
-
 export default function Component() {
   const [potAmount, setPotAmount] = useState(1000);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
