@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { ScrollArea } from "./components/ui/scroll-area";
-import styles from "./Component.module.css"; // Import the CSS module
+import styles from './components/Component.module.css';
 
 const Sprite = ({ x, y, size, color }) => (
   <div
