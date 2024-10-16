@@ -1,12 +1,11 @@
 'use client';
-
 import { useState, useEffect, useRef } from 'react';
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { ScrollArea } from "./components/ui/scroll-area";
 
 const Sprite = ({ x, y, size, color }) => (
-  <div
+  <div 
     className="absolute rounded-full"
     style={{
       left: `${x}px`,
@@ -15,24 +14,23 @@ const Sprite = ({ x, y, size, color }) => (
       height: `${size}px`,
       backgroundColor: color,
       opacity: 0.5,
-    }}
+    }} 
   />
 );
 
 export default function Component() {
   const [potAmount, setPotAmount] = useState(1000);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState(''); // We'll keep these and use them
+  const [username, setUsername] = useState('');
   const [spots, setSpots] = useState(0);
   const [leaderboard, setLeaderboard] = useState([]);
   const [sprites, setSprites] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const animationRef = useRef();
   const containerRef = useRef();
 
-  // ... (previous useEffect hooks remain unchanged)
+  // Use the useEffect hooks and other logic here
 
   const handleBuyDigitalSticker = async () => {
     try {
@@ -48,7 +46,7 @@ export default function Component() {
           'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
-          username, // Use username here
+          username,
           potAmount,
         }),
       });
@@ -83,7 +81,7 @@ export default function Component() {
       console.log("Logged in successfully:", data);
 
       setIsLoggedIn(true);
-      setUsername(email); // Use setUsername here
+      setUsername(email);
       localStorage.setItem('token', data.token);
     } catch (error) {
       console.error("Login error:", error);
@@ -94,7 +92,7 @@ export default function Component() {
     localStorage.removeItem('token');
     console.log("Logged out");
     setIsLoggedIn(false);
-    setUsername(''); // Use setUsername here
+    setUsername('');
   };
 
   return (
@@ -107,7 +105,6 @@ export default function Component() {
           <h1 className="text-4xl font-bold mb-2 animate-pulse">Halfpot</h1>
           <p className="text-2xl">Current Pot: ${potAmount}</p>
         </header>
-
         <div className="flex flex-1">
           <aside className="w-1/4 mr-4">
             <h2 className="text-xl mb-2">Leaderboard</h2>
@@ -119,28 +116,26 @@ export default function Component() {
               ))}
             </ScrollArea>
           </aside>
-
           <main className="flex-1 flex flex-col items-center justify-center -mt-16">
-            <Button
+            <Button 
               className="text-4xl px-12 py-6 mb-8 bg-green-500 text-black hover:bg-green-600 transform hover:scale-105 transition-transform"
               onClick={handleBuyDigitalSticker}
             >
               Buy Digital Sticker
             </Button>
           </main>
-
           <aside className="w-1/4 ml-4">
             {isLoggedIn ? (
               <div>
                 <p className="mb-2">Welcome, {username}!</p>
                 <p className="mb-2">Your spots: {spots}</p>
-                <Button
+                <Button 
                   className="w-full mb-2 bg-green-500 text-black hover:bg-green-600"
                   onClick={handleBuyDigitalSticker}
                 >
                   Buy Digital Sticker
                 </Button>
-                <Button
+                <Button 
                   className="w-full bg-green-500 text-black hover:bg-green-600"
                   onClick={handleLogout}
                 >
@@ -149,20 +144,20 @@ export default function Component() {
               </div>
             ) : (
               <div>
-                <Input
+                <Input 
                   className="w-full mb-2 bg-black text-green-500 border-green-500"
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <Input
+                <Input 
                   className="w-full mb-2 bg-black text-green-500 border-green-500"
                   type="password"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <Button
+                <Button 
                   className="w-full bg-green-500 text-black hover:bg-green-600"
                   onClick={handleLogin}
                 >
@@ -172,7 +167,6 @@ export default function Component() {
             )}
           </aside>
         </div>
-
         <footer className="mt-8 text-center">
           <p className="mb-2">Half of the pot goes to a winner selected at random at the end of each month.</p>
           <button onClick={() => {}} className="underline">FAQ</button>
