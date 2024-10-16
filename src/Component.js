@@ -232,7 +232,7 @@ export default function Component() {
 
         <footer className="mt-8 text-center">
           <p className="mb-2">Half of the pot goes to a winner selected at random at the end of each month.</p>
-          <a href="#" className="underline">FAQ</a>
+          <button onClick={() => {}} className="underline">FAQ</button>
         </footer>
       </div>
     </div>
