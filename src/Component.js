@@ -23,8 +23,8 @@ export default function Component() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [spots, setSpots] = useState(0);
-  const [leaderboard, setLeaderboard] = useState([]);
-  const [sprites, setSprites] = useState([]);
+  const [leaderboard, setLeaderboard] = useState([]); // Keep setLeaderboard here
+  const [sprites, setSprites] = useState([]); // Keep setSprites here
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
