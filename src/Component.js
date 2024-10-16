@@ -4,27 +4,12 @@ import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { ScrollArea } from "./components/ui/scroll-area";
 
-const Sprite = ({ x, y, size, color }) => (
-  <div 
-    className="absolute rounded-full"
-    style={{
-      left: `${x}px`,
-      top: `${y}px`,
-      width: `${size}px`,
-      height: `${size}px`,
-      backgroundColor: color,
-      opacity: 0.5,
-    }} 
-  />
-);
-
 export default function Component() {
   const [potAmount, setPotAmount] = useState(1000);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [spots, setSpots] = useState(0);
-  const [leaderboard, setLeaderboard] = useState([]); // Keep setLeaderboard here
-  const [sprites, setSprites] = useState([]); // Keep setSprites here
+  const [leaderboard, setLeaderboard] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -93,9 +78,6 @@ export default function Component() {
 
   return (
     <div className="min-h-screen bg-black text-green-500 font-mono p-4 flex flex-col relative overflow-hidden">
-      {sprites.map((sprite, index) => (
-        <Sprite key={index} {...sprite} />
-      ))}
       <div className="relative z-10">
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-2 animate-pulse">Halfpot</h1>
